@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\client;
 
+use App\Http\Controllers\Controller;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 
@@ -11,20 +12,16 @@ class HotelController extends Controller
     {
         $query = Hotel::with('city');
 
-        if ($request->filled('name')) {
-            $query->where(
-                'name',
-                'like',
-                '%' . $request->name . '%'
-            );
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")->orWhere('name', 'like', "%{$search}%");
+            });
         }
 
         if ($request->filled('min_rating')) {
-            $query->where(
-                'rating',
-                '>=',
-                $request->min_rating
-            );
+            $query->where('rating', '>=', $request->min_rating);
         }
 
         if ($request->get('sort') === 'rating_desc') {
@@ -35,9 +32,7 @@ class HotelController extends Controller
             $query->orderBy('rating');
         }
 
-        $hotels = $query
-            ->paginate(30)
-            ->withQueryString();
+        $hotels = $query->paginate(30)->withQueryString();
 
         return view('client.hotels.index', compact('hotels'));
     }

@@ -11,11 +11,6 @@
                         {{ __('app.hotels') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('hotels.search') }}">
-                        {{ __('app.search') }}
-                    </a>
-                </li>
             </ul>
             <div class="d-flex">
                 <div class="dropdown">

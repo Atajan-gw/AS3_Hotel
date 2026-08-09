@@ -17,6 +17,45 @@
             <div class="h1 text-success my-3">
                 {{ __('app.hotels') }}
             </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <form action="{{ route('hotels.index') }}" method="GET" class="search-form row g-3">
+                        <div class="col">
+                            <label for="search" class="form-label">{{ __('app.search') }}</label>
+                            <input class="form-control" type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('app.search') }}">
+                        </div>
+                        <div class="col">
+                            <label for="rating" class="form-label">{{ __('app.any_rating') }}</label>
+                            <select class="form-select" name="min_rating" id="">
+                                <option value="">{{ __('app.any_rating') }}</option>
+                                <option value="3">{{ request('min_rating') == '3' ? 'selected' : '' }}3+ {{ __('app.stars') }}</option>
+                                <option value="4">{{ request('min_rating') == '4' ? 'selected' : '' }}4+ {{ __('app.stars') }}</option>
+                                <option value="5">{{ request('min_rating') == '5' ? 'selected' : '' }}5+ {{ __('app.stars') }}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="sort" class="form-label">{{ __('app.without_sorting') }}</label>
+                            <select class="form-select" name="sort" id="">
+                                <option value="">{{ __('app.without_sorting') }}</option>
+                                <option value="rating_desc">{{ request('sort') == 'rating_desc' ? 'selected' : '' }}
+                                    {{ __('app.rating_in_descending_order') }}
+                                </option>
+                                <option value="rating_asc">{{ request('sort') == 'rating_asc' ? 'selected' : '' }}
+                                    {{ __('app.rating_ascending') }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col align-items-end d-flex">
+                            <button type="submit" class="w-100 btn btn-success">
+                                {{ __('app.search') }}
+                            </button>
+                        </div> 
+                        <div class="col d-flex align-items-end">
+                            <a href="{{ route('hotels.index') }}" class="btn btn-warning w-100">{{ __('app.reset') }}</a>
+                        </div>    
+                    </form>
+                </div>
+            </div>
             <div class="row g-3">
                 @foreach($hotels as $hotel)
                 <div class="col-lg-2">

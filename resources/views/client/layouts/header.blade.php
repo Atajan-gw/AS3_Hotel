@@ -15,7 +15,6 @@
 
     @include('client.app.navbar')
 
-    
 </body>
 
 </html>

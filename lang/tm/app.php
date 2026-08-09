@@ -11,4 +11,10 @@ return [
     'email' => 'E-pocta',
     'make_a_reservation' => 'Kitap',
     'search' => 'Gozleg',
+    'any_rating' => 'Islendik Baha',
+    'without_sorting' => 'Tertiplenmedik',
+    'stars' => 'Yyldyz',
+    'rating_in_descending_order' => 'Ulydan Kica',
+    'rating_ascending' => 'Kiciden Ula',
+    'reset' => 'Arassala',
 ];
