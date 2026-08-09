@@ -2,22 +2,34 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Booking;
+use App\Models\City;
+use App\Models\Guest;
+use App\Models\Hotel;
+use App\Models\Room;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(CitySeeder::class);
+        $cities = City::all();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($cities as $city) {
+            $hotels = Hotel::factory(10)
+                ->for($city)
+                ->create();
+
+            foreach ($hotels as $hotel) {
+                Room::factory(100)
+                    ->for($hotel)
+                    ->create();
+            }
+        }
+
+        Guest::factory(100)->create();
+
+        Booking::factory(100)->create();
     }
 }
