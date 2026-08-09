@@ -7,23 +7,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('hotels.index') }}">
+                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('admin.dashboard') }}">
+                        {{ __('app.dashboard') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('admin.hotels.index') }}">
                         {{ __('app.hotels') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('admin.bookings.index') }}">
+                        {{ __('app.bookings') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light h1" aria-current="page" href="{{ route('admin.users.index') }}">
+                        {{ __('app.users') }}
                     </a>
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-2">
-                @auth
-                    <span class="text-light">{{ auth()->user()->name }}</span>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-light">{{ __('app.logout') }}</button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="btn btn-light">{{ __('app.login') }}</a>
-                    <a href="{{ route('register') }}" class="btn btn-outline-light">{{ __('app.register') }}</a>
-                @endauth
-
                 <div class="dropdown">
                     <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">

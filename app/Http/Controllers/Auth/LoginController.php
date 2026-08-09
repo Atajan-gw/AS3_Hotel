@@ -22,7 +22,15 @@ class LoginController extends Controller
 
         $credentials['username'] = trim($credentials['username']);
 
-        if (Auth::attempt(['username' => $credentials['username'], 'password' => $credentials['password']], $request->boolean('remember'))) {
+        $user = \App\Models\User::where('username', $credentials['username'])->first();
+
+        if ($user && $user->is_blocked) {
+            return back()->withErrors([
+                'username' => __('app.account_blocked'),
+            ])->onlyInput('username');
+        }
+
+        if (Auth::attempt(['username' => $credentials['username'], 'password' => $credentials['password'], 'is_blocked' => false], $request->boolean('remember'))) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('hotels.index'));

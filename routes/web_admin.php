@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookingAdminController;
 use App\Http\Controllers\Admin\HotelAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('web')->group(function () {
@@ -26,4 +27,7 @@ Route::middleware(['web', 'admin.auth'])->group(function () {
     Route::get('/admin/bookings/create', [BookingAdminController::class, 'create'])->name('admin.bookings.create');
     Route::post('/admin/bookings', [BookingAdminController::class, 'store'])->name('admin.bookings.store');
     Route::delete('/admin/bookings/{booking}', [BookingAdminController::class, 'destroy'])->name('admin.bookings.destroy');
+
+    Route::get('/admin/users', [UserAdminController::class, 'index'])->name('admin.users.index');
+    Route::post('/admin/users/{user}/toggle', [UserAdminController::class, 'toggle'])->name('admin.users.toggle');
 });
