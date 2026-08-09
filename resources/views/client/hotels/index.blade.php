@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') Hotels</title>
+    <title>@yield('title') {{ __('app.hotels') }}</title>
 </head>
 
 <body>
@@ -70,6 +70,11 @@
                             <i class="bi bi-star"></i> <span>{{ $hotel->rating }}</span>
                             <i class="bi bi-phone ms-2"></i> {{ $hotel->phone }}
                         </div>
+                        @if($hotel->hasFreeRooms())
+                            <span class="badge bg-success mb-2">{{ __('app.free_rooms_available') }}</span>
+                        @else
+                            <span class="badge bg-danger mb-2">{{ __('app.fully_booked') }}</span>
+                        @endif
                         <a class="btn btn-success w-100" href="{{ route('hotels.show', $hotel->id) }}">
                             {{ __('app.view') }}
                         </a>

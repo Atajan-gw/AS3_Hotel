@@ -37,4 +37,14 @@ class Hotel extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function hasFreeRooms(): bool
+    {
+        return $this->rooms()->where(function ($query) {
+            $query->where('is_available', true)
+                ->whereDoesntHave('bookings', function ($bookingQuery) {
+                    $bookingQuery->where('status', 'confirmed');
+                });
+        })->exists();
+    }
 }

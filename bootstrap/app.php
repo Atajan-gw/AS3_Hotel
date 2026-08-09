@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\LocaleMiddleware::class,
         ]);
+
+        $middleware->alias([
+            'admin.auth' => \App\Http\Middleware\AdminAuthMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -38,4 +38,14 @@ class Room extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function refreshAvailability(): void
+    {
+        $hasActiveBooking = $this->bookings()
+            ->where('status', 'confirmed')
+            ->whereDate('check_out', '>=', now()->toDateString())
+            ->exists();
+
+        $this->forceFill(['is_available' => ! $hasActiveBooking])->save();
+    }
 }

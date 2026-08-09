@@ -42,9 +42,14 @@
                     </div>
 
                     <div class="mt-4">
-                        <button class="btn btn-success btn-lg w-100">
-                            {{ __('app.make_a_reservation') }}
-                        </button>
+                        @php($hotel->rooms->each->refreshAvailability())
+                        @if($hotel->hasFreeRooms())
+                            <a href="{{ route('reservations.create', $hotel) }}" class="btn btn-success btn-lg w-100">
+                                {{ __('app.make_a_reservation') }}
+                            </a>
+                        @else
+                            <button class="btn btn-danger btn-lg w-100" disabled>{{ __('app.no_free_rooms') }}</button>
+                        @endif
                     </div>
                 </div>
 
