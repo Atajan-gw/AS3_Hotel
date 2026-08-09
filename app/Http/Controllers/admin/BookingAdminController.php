@@ -39,12 +39,14 @@ class BookingAdminController extends Controller
             'special_requests' => ['nullable', 'string'],
         ]);
 
-        $guest = Guest::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-        ]);
+        $guest = Guest::updateOrCreate(
+            ['email' => $data['email']],
+            [
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'phone' => $data['phone'],
+            ]
+        );
 
         $room = Room::findOrFail($data['room_id']);
         $nights = now()->parse($data['check_in'])->diffInDays(now()->parse($data['check_out']));
