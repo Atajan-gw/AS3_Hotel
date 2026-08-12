@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 </head>
 
-@include('client.layouts.header')
+@include('client.layouts.app')
 <body class="bg-light">
 <div class="container py-5">
     <div class="row justify-content-center">
