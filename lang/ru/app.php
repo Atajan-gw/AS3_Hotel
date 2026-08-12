@@ -57,7 +57,6 @@ return [
     'room' => 'Номер',
     'check_in' => 'Заезд',
     'check_out' => 'Выезд',
-    'status' => 'Статус',
     'confirmed' => 'Подтверждено',
     'pending' => 'В ожидании',
     'cancelled' => 'Отменено',

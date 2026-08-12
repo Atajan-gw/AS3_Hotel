@@ -35,7 +35,6 @@ return [
     'bookings' => 'Bookings',
     'users' => 'Users',
     'id' => 'ID',
-    'status' => 'Status',
     'blocked' => 'Blocked',
     'active' => 'Active',
     'block' => 'Block',

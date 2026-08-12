@@ -57,7 +57,6 @@ return [
     'room' => 'Otag',
     'check_in' => 'Giriş',
     'check_out' => 'Çykyş',
-    'status' => 'Status',
     'confirmed' => 'Tassyklanan',
     'pending' => 'Garaşylýar',
     'cancelled' => 'Bes edildi',
