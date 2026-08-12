@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 </head>
 <body class="bg-light">
-    @include('client.layouts.header')
+    @include('client.layouts.app')
 
     <main class="container py-5">
         <div class="card shadow-sm">

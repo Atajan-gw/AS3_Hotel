@@ -6,7 +6,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    @include('client.layouts.header')
+    @include('client.layouts.app')
 
     <main class="container-lg my-4">
         @yield('content')

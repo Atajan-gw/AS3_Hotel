@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    @include('client.layouts.header')
+    @include('client.layouts.app')
 
     <main>
         @yield('content')
