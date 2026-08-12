@@ -17,9 +17,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:8'],
+            'username' => ['required', 'string', 'min:3', 'max:255', 'regex:/^[A-Za-z0-9_\-]+$/', 'unique:users,username'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
+
+        $data['username'] = trim($data['username']);
 
         $user = User::create([
             'name' => $data['username'],

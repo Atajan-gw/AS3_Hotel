@@ -25,9 +25,11 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
+            'username' => ['required', 'string', 'min:3', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
+
+        $credentials['username'] = trim($credentials['username']);
 
         if ($credentials['username'] === 'admin' && $credentials['password'] === '12345678') {
             $request->session()->put('admin_logged_in', true);

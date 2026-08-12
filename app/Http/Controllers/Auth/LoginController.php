@@ -16,8 +16,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required'],
+            'username' => ['required', 'string', 'min:3', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+            'remember' => ['nullable', 'boolean'],
         ]);
 
         $credentials['username'] = trim($credentials['username']);

@@ -32,12 +32,12 @@
                         <td>{{ $booking->room->number ?? '-' }}</td>
                         <td>{{ $booking->check_in }}</td>
                         <td>{{ $booking->check_out }}</td>
-                        <td>{{ $booking->status }}</td>
+                        <td>{{ $booking->display_status }}</td>
                         <td>
                             <form action="{{ route('admin.bookings.destroy', $booking) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{{ __('app.delete_this_booking') }}')">{{ __('app.delete') }}</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this booking?')">{{ __('app.delete') }}</button>
                             </form>
                         </td>
                     </tr>

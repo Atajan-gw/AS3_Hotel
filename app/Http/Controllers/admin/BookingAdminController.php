@@ -27,16 +27,16 @@ class BookingAdminController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'room_id' => ['required', 'exists:rooms,id'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
+            'room_id' => ['required', 'exists:rooms,id', 'integer'],
+            'first_name' => ['required', 'string', 'min:2', 'max:255'],
+            'last_name' => ['required', 'string', 'min:2', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
-            'check_in' => ['required', 'date'],
-            'check_out' => ['required', 'date', 'after_or_equal:check_in'],
+            'check_in' => ['required', 'date', 'date_format:Y-m-d'],
+            'check_out' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:check_in'],
             'guests_count' => ['required', 'integer', 'min:1', 'max:10'],
-            'status' => ['required', 'string'],
-            'special_requests' => ['nullable', 'string'],
+            'status' => ['required', 'string', 'in:pending,confirmed,cancelled,completed'],
+            'special_requests' => ['nullable', 'string', 'max:1000'],
         ]);
 
         $guest = Guest::updateOrCreate(

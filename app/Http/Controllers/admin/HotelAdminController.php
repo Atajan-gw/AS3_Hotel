@@ -26,11 +26,11 @@ class HotelAdminController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'city_id' => ['required', 'exists:cities,id'],
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:hotels,slug'],
-            'description' => ['nullable', 'string'],
-            'address' => ['required', 'string', 'max:255'],
+            'city_id' => ['required', 'exists:cities,id', 'integer'],
+            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'slug' => ['required', 'string', 'min:2', 'max:255', 'unique:hotels,slug'],
+            'description' => ['nullable', 'string', 'max:2000'],
+            'address' => ['required', 'string', 'min:5', 'max:255'],
             'rating' => ['nullable', 'numeric', 'between:0,5'],
             'phone' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
@@ -51,11 +51,11 @@ class HotelAdminController extends Controller
     public function update(Request $request, Hotel $hotel)
     {
         $data = $request->validate([
-            'city_id' => ['required', 'exists:cities,id'],
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:hotels,slug,' . $hotel->id],
-            'description' => ['nullable', 'string'],
-            'address' => ['required', 'string', 'max:255'],
+            'city_id' => ['required', 'exists:cities,id', 'integer'],
+            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'slug' => ['required', 'string', 'min:2', 'max:255', 'unique:hotels,slug,' . $hotel->id],
+            'description' => ['nullable', 'string', 'max:2000'],
+            'address' => ['required', 'string', 'min:5', 'max:255'],
             'rating' => ['nullable', 'numeric', 'between:0,5'],
             'phone' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],

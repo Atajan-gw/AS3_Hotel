@@ -11,29 +11,36 @@ class HotelController extends Controller
 {
     public function index(Request $request)
     {
+        $data = $request->validate([
+            'search' => ['nullable', 'string', 'max:255'],
+            'city_id' => ['nullable', 'integer', 'exists:cities,id'],
+            'min_rating' => ['nullable', 'numeric', 'between:0,5'],
+            'sort' => ['nullable', 'string', 'in:rating_desc,rating_asc'],
+        ]);
+
         $query = Hotel::with('city');
 
-        if ($request->filled('search')) {
-            $search = $request->search;
+        if (!empty($data['search'])) {
+            $search = trim($data['search']);
 
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")->orWhere('name', 'like', "%{$search}%");
+                $q->where('name', 'like', "%{$search}%")->orWhere('address', 'like', "%{$search}%");
             });
         }
 
-        if ($request->filled('city_id') && $request->city_id != '') {
-            $query->where('city_id', $request->city_id);
+        if (!empty($data['city_id'])) {
+            $query->where('city_id', $data['city_id']);
         }
 
-        if ($request->filled('min_rating')) {
-            $query->where('rating', '>=', $request->min_rating);
+        if (!empty($data['min_rating'])) {
+            $query->where('rating', '>=', $data['min_rating']);
         }
 
-        if ($request->get('sort') === 'rating_desc') {
+        if ($data['sort'] ?? null === 'rating_desc') {
             $query->orderByDesc('rating');
         }
 
-        if ($request->get('sort') === 'rating_asc') {
+        if ($data['sort'] ?? null === 'rating_asc') {
             $query->orderBy('rating');
         }
 
@@ -48,9 +55,13 @@ class HotelController extends Controller
         return view('client.hotels.show', compact('hotel'));
     }
 
-    public function locale($locale)
+    public function locale(Request $request, $locale)
     {
-        $locale = in_array($locale, ['en', 'tm', 'ru']) ? $locale : 'en';
+        $locale = $request->validate([
+            'locale' => ['nullable', 'string', 'in:en,tm,ru'],
+        ])['locale'] ?? $locale;
+
+        $locale = in_array($locale, ['en', 'tm', 'ru'], true) ? $locale : 'en';
         session()->put('locale', $locale);
 
         return redirect()->back();

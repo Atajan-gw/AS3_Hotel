@@ -40,6 +40,8 @@ return [
     'active' => 'Aktiw',
     'block' => 'Blokla',
     'unblock' => 'Blokdan çykar',
+    'completed' => 'Tamamlandy',
+    'canceled' => 'El çekildi',
     'account_blocked' => 'Siziň hasabyňyz blok edildi.',
     'no_users_found' => 'Ulanyjylar tapylmady.',
     'admin_login' => 'Admin giriş',
