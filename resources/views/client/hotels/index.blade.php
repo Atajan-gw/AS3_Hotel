@@ -39,9 +39,11 @@
                             <label for="rating" class="form-label">{{ __('app.any_rating') }}</label>
                             <select class="form-select" name="min_rating" id="">
                                 <option value="">{{ __('app.any_rating') }}</option>
-                                <option value="3">{{ request('min_rating') == '3' ? 'selected' : '' }}3+ {{ __('app.stars') }}</option>
-                                <option value="4">{{ request('min_rating') == '4' ? 'selected' : '' }}4+ {{ __('app.stars') }}</option>
-                                <option value="5">{{ request('min_rating') == '5' ? 'selected' : '' }}5+ {{ __('app.stars') }}</option>
+                                <option value="1">{{ request('min_rating') == '1' ? 'Selected ' : '' }}1+ {{ __('app.stars') }}</option>
+                                <option value="2">{{ request('min_rating') == '2' ? 'Selected ' : '' }}2+ {{ __('app.stars') }}</option>
+                                <option value="3">{{ request('min_rating') == '3' ? 'Selected ' : '' }}3+ {{ __('app.stars') }}</option>
+                                <option value="4">{{ request('min_rating') == '4' ? 'Selected ' : '' }}4+ {{ __('app.stars') }}</option>
+                                <option value="5">{{ request('min_rating') == '5' ? 'Selected ' : '' }}5+ {{ __('app.stars') }}</option>
                             </select>
                         </div>
                         <div class="col">
