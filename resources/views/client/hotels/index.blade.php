@@ -25,6 +25,17 @@
                             <input class="form-control" type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('app.search') }}">
                         </div>
                         <div class="col">
+                            <label for="city" class="form-label">{{ __('app.city') }}</label>
+                            <select name="city_id" id="city_id" class="form-select">
+                                <option value="">{{ __('app.city') }}</option>
+                                @foreach($cities as $city)
+                                <option value="{{ $city->id }}" {{ request('city_id') == $city->id ? 'selected' : '' }}>
+                                    {{ $city->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
                             <label for="rating" class="form-label">{{ __('app.any_rating') }}</label>
                             <select class="form-select" name="min_rating" id="">
                                 <option value="">{{ __('app.any_rating') }}</option>
@@ -49,10 +60,10 @@
                             <button type="submit" class="w-100 btn btn-success">
                                 {{ __('app.search') }}
                             </button>
-                        </div> 
+                        </div>
                         <div class="col d-flex align-items-end">
                             <a href="{{ route('hotels.index') }}" class="btn btn-warning w-100">{{ __('app.reset') }}</a>
-                        </div>    
+                        </div>
                     </form>
                 </div>
             </div>
@@ -71,9 +82,9 @@
                             <i class="bi bi-phone ms-2"></i> {{ $hotel->phone }}
                         </div>
                         @if($hotel->hasFreeRooms())
-                            <span class="badge bg-success mb-2">{{ __('app.free_rooms_available') }}</span>
+                        <span class="badge bg-success mb-2">{{ __('app.free_rooms_available') }}</span>
                         @else
-                            <span class="badge bg-danger mb-2">{{ __('app.fully_booked') }}</span>
+                        <span class="badge bg-danger mb-2">{{ __('app.fully_booked') }}</span>
                         @endif
                         <a class="btn btn-success w-100" href="{{ route('hotels.show', $hotel->id) }}">
                             {{ __('app.view') }}

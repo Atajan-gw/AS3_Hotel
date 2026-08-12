@@ -17,6 +17,10 @@
                         <h1 class="text-success mb-3">{{ $hotel->name }}</h1>
 
                         <h5 class="mt-3 my-3">
+                            {{ __('app.city') }}: {{ $hotel->city->name }}
+                        </h5>
+
+                        <h5 class="mt-3 my-3">
                             {{ __('app.address') }}: {{ $hotel->address }}
                         </h5>
 

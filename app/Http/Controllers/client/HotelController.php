@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
+use App\Models\City;
 
 class HotelController extends Controller
 {
@@ -20,6 +21,10 @@ class HotelController extends Controller
             });
         }
 
+        if ($request->filled('city_id') && $request->city_id != '') {
+            $query->where('city_id', $request->city_id);
+        }
+
         if ($request->filled('min_rating')) {
             $query->where('rating', '>=', $request->min_rating);
         }
@@ -33,8 +38,9 @@ class HotelController extends Controller
         }
 
         $hotels = $query->paginate(30)->withQueryString();
+        $cities = City::all();
 
-        return view('client.hotels.index', compact('hotels'));
+        return view('client.hotels.index', compact('hotels', 'cities'));
     }
 
     public function show(Hotel $hotel)
