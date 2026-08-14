@@ -35,7 +35,7 @@ class BookingAdminController extends Controller
             'check_in' => ['required', 'date', 'date_format:Y-m-d'],
             'check_out' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:check_in'],
             'guests_count' => ['required', 'integer', 'min:1', 'max:10'],
-            'status' => ['required', 'string', 'in:pending,confirmed,cancelled,completed'],
+            'status' => ['required', 'string', 'in:pending,confirmed,cancelled,canceled,completed'],
             'special_requests' => ['nullable', 'string', 'max:1000'],
         ]);
 
@@ -51,6 +51,7 @@ class BookingAdminController extends Controller
         $room = Room::findOrFail($data['room_id']);
         $nights = now()->parse($data['check_in'])->diffInDays(now()->parse($data['check_out']));
         $totalPrice = $room->price_per_night * max($nights, 1);
+        $status = Booking::resolveStatusFromDates($data['check_in'], $data['check_out']);
 
         Booking::create([
             'room_id' => $room->id,
@@ -60,7 +61,7 @@ class BookingAdminController extends Controller
             'guests_count' => $data['guests_count'],
             'price_per_night' => $room->price_per_night,
             'total_price' => $totalPrice,
-            'status' => $data['status'],
+            'status' => $status,
             'special_requests' => $data['special_requests'] ?? null,
         ]);
 
@@ -71,8 +72,8 @@ class BookingAdminController extends Controller
 
     public function destroy(Booking $booking)
     {
-        $booking->delete();
+        $booking->update(['status' => 'cancelled']);
 
-        return redirect()->route('admin.bookings.index')->with('success', 'Booking deleted successfully.');
+        return redirect()->route('admin.bookings.index')->with('success', 'Booking cancelled successfully.');
     }
 }

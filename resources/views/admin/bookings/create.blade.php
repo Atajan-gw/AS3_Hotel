@@ -18,8 +18,9 @@
                 <div class="col-md-6">
                     <label class="form-label">{{ __('app.status') }}</label>
                     <select name="status" class="form-select" required>
-                        <option value="confirmed">{{ __('app.confirmed') }}</option>
                         <option value="pending">{{ __('app.pending') }}</option>
+                        <option value="confirmed">{{ __('app.confirmed') }}</option>
+                        <option value="completed">{{ __('app.completed') }}</option>
                         <option value="cancelled">{{ __('app.cancelled') }}</option>
                     </select>
                 </div>

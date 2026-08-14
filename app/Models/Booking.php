@@ -42,30 +42,44 @@ class Booking extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    public static function resolveStatusFromDates(?string $checkIn, ?string $checkOut): string
+    {
+        $today = now()->toDateString();
+        $checkInDate = $checkIn ? now()->parse($checkIn)->toDateString() : null;
+        $checkOutDate = $checkOut ? now()->parse($checkOut)->toDateString() : null;
+
+        if ($checkInDate && $today < $checkInDate) {
+            return 'pending';
+        }
+
+        if ($checkInDate && $checkOutDate && $today >= $checkInDate && $today < $checkOutDate) {
+            return 'confirmed';
+        }
+
+        if ($checkOutDate && $today >= $checkOutDate) {
+            return 'completed';
+        }
+
+        return 'pending';
+    }
+
     public function getDisplayStatusAttribute(): string
     {
         $status = strtolower((string) $this->status);
 
         if (in_array($status, ['cancelled', 'canceled'], true)) {
-            return __('app.canceled');
+            return __('app.cancelled');
         }
 
-        $today = now()->toDateString();
-        $checkIn = $this->check_in?->toDateString();
-        $checkOut = $this->check_out?->toDateString();
+        $resolvedStatus = self::resolveStatusFromDates(
+            $this->check_in?->toDateString(),
+            $this->check_out?->toDateString()
+        );
 
-        if ($checkIn && $today < $checkIn) {
-            return __('app.pending');
-        }
-
-        if ($checkIn && $checkOut && $today >= $checkIn && $today < $checkOut) {
-            return __('app.confirmed');
-        }
-
-        if ($checkOut && $today >= $checkOut) {
-            return __('app.completed');
-        }
-
-        return __('app.pending');
+        return match ($resolvedStatus) {
+            'confirmed' => __('app.confirmed'),
+            'completed' => __('app.completed'),
+            default => __('app.pending'),
+        };
     }
 }
