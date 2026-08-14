@@ -1,5 +1,5 @@
-store() - store() metody laravelda kontrollerda databaza täze maglumatlar goşmak üçin ulanylýar.
+store() - store() metody kontrollerda databaza täze maglumatlar goşmak üçin ulanylýar.
 
 $table->string - bu databazada setir görnüşli täze sütün döretýär.
 
-Route::middleware() -> routlara araçy maksatnamalaýyn middleware birikdirýär.
+Route::middleware() -> bu metod ulanyjyň zaprosyny barlaýar (filtrleýär) eger zapros dogry bolsa geçirýär bolmosada geçirenok.
